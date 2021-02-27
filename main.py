@@ -127,6 +127,16 @@ def dbroute():
         return jsonify(session.query(UserIdea).all())
     return run_transaction(sessionmaker, callback)
 
+@app.route('/db/kickstarter')
+def kickstarterroute():
+    def callback(session):
+        data = session.query(Kickstarter).all()
+        return {
+            'count': len(data),
+            'data': data
+        }
+    return run_transaction(sessionmaker, callback)
+
 @app.route('/db/categories')
 def categories():
     def callback(session):
