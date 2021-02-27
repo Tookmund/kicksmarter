@@ -8,6 +8,7 @@ from cockroachdb.sqlalchemy import run_transaction
 
 import csv
 import re
+from urllib.parse import urlencode
 
 app = Flask(__name__)
 
@@ -114,9 +115,10 @@ def idea():
             'chance': getchance(similardata),
             'similar': [{
                 'title': x[1],
-                'url': '',
+                'url': 'https://www.kickstarter.com/discover/advanced?ref=nav_search&term='+urlencode(x[1]),
+                'category': x[3],
                 'goal': x[4],
-                'pledged': x[5]
+                'raised': x[5]
             } for x in similardata]
         }
     return run_transaction(sessionmaker, callback)
@@ -125,6 +127,16 @@ def idea():
 def dbroute():
     def callback(session):
         return jsonify(session.query(UserIdea).all())
+    return run_transaction(sessionmaker, callback)
+
+@app.route('/db/kickstarter')
+def kickstarterroute():
+    def callback(session):
+        data = session.query(Kickstarter).all()
+        return {
+            'count': len(data),
+            'data': data
+        }
     return run_transaction(sessionmaker, callback)
 
 @app.route('/db/categories')
