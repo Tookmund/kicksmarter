@@ -9,8 +9,8 @@ const app = Vue.createApp({
             console.log('sending request');
             fetch('https://kicksmarter.ue.r.appspot.com/api', {
                 method: 'POST',
-                body: "{'title': 'adam has a cool title'}",
-                headers:{'content-type': 'application/json'}
+                body: '{"title": "adam has a cool title"}',
+                headers: {'Content-Type': 'application/json'}
             })
                 .then(function(response) {
                     return response.json();
