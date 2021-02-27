@@ -9,6 +9,7 @@ const app = Vue.createApp({
             category: "",
             amount: 0,
 
+            submittedTitle: "",
             chance: 0,
             similar: [],
 
@@ -20,6 +21,7 @@ const app = Vue.createApp({
         sendRequest: function () {
             this.isWaiting = true;
             this.status = "Loading...";
+            this.submittedTitle = this.title;
             
             input = {
                 title: this.title,

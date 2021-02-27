@@ -10,31 +10,51 @@
 	</head>
 	<body>
         <header><img src="kicksmarter.png" alt="Kicksmarter logo"></header>
-        <div id="app">
-            <button v-on:click="sendRequest()">Button</button>
-            <div v-if="isWaitingForCategories">
-                <p>Loading...</p>
-            </div>
-            <div v-else>
-                <p><input type="text" v-model="title"></p>
-                <p><input type="text" v-model="desc"></p>
-                <select v-model="category">
-                    <option v-for="each_category in categories">{{ each_category }}</option>
-                </select>
-                <p><input type="number" v-model="amount"></p>
-            </div>
-            <div v-if="isWaiting">
-                <p>{{ status }}</p>
-            </div>
-            <div v-else>
-                <p>{{ chance }}</p>
-                <div v-for="item in similar">
-                    <p>{{ item.subcategory }} / {{ item.category }}</p>
-                    <p>${{ item.raised }} / ${{ item.goal }}</p>
-                    <p v-if="item.raised >= item.goal">Funded</p> <p v-else>Failed</p>
-                    <p>{{ item.title }}</p>
+        <main id="app">
+            <div id="input">
+                <div v-if="isWaitingForCategories">
+                    <p class="loading">Loading...</p>
+                </div>
+                <div v-else>
+                    <p class="label-input">
+                        <label for="title">Title</label>
+                        <input type="text" v-model="title" id="title">
+                    </p>
+                    <p class="label-input">
+                        <label for="desc">Description</label>
+                        <input type="text" v-model="desc" id="desc">
+                    </p>
+                    <p class="label-input">
+                        <label for="desc">Description</label>
+                        <select v-model="category">
+                            <option v-for="each_category in categories">{{ each_category }}</option>
+                        </select>
+                    </p>
+                    <p class="label-input">
+                        <label for="amount">Funding Goal</label>
+                        <input type="number" v-model="amount" id="amount">
+                    </p>
+                    <button v-on:click="sendRequest()">Button</button>
                 </div>
             </div>
-        </div>
+            <div id="output">
+                <div v-if="isWaiting">
+                    <p class="loading">{{ status }}</p>
+                </div>
+                <div v-else>
+                    <p id="output-title">{{ submittedTitle }}</p>
+                    <div id="bar"><div id="bar-inner" v-bind:style="{width: chance + '%'}"></div></div>
+                    <p id="chance">{{ chance }}%</p>
+                    <p id="chance-text">likely to be funded</p>
+                    <p id="you-may-have-copied">You may have copied...</p>
+                    <div v-for="item in similar">
+                        <p>{{ item.subcategory }} / {{ item.category }}</p>
+                        <p>${{ item.raised }} / ${{ item.goal }}</p>
+                        <p v-if="item.raised >= item.goal">Funded</p> <p v-else>Failed</p>
+                        <p>{{ item.title }}</p>
+                    </div>
+                </div>
+            </div>
+        </main>
 	</body>
 </html>

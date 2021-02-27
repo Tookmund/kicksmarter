@@ -1,14 +1,122 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+html, body {
     margin: 0px;
+    min-height: 100vh;
+    font-family: Inter, sans-serif;
+    color: #333333;
+    font-size: 16px;
+}
+
+* {
+    margin: 0px;
+}
+
+input, select, button {
+    font-family: inherit;
+    color: inherit;
+    font-size: inherit;
+}
+
+.label-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.label-input > * {
+    display: block;
+}
+
+.label-input label {
+    margin-bottom: 10px;
+    color: #666666;
+}
+
+.label-input :not(:first-child) {
+    margin-bottom: 40px;
+}
+
+input, select {
+    border: solid 1px #c7c7c7;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #055733;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+}
+
+.loading {
+    text-align: center;
+    margin-top: 50px;
 }
 
 header {
     text-align: center;
     height: 60px;
     box-shadow: 0px 5px 5px 0px #c7c7c7;
+    position: relative;
+    z-index: 99;
 }
 
 header img {
     height: 30px;
     margin-top: 15px;
+}
+
+main {
+    height: calc(100vh - 60px);
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+}
+
+#input, #output {
+    padding: 50px 20%;
+}
+
+#output {
+    background-color: #f4f8f4;
+    box-shadow: inset 5px 0px 5px 0px #d3dfd8;
+}
+
+#output-title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+#bar {
+    width: 100%;
+    height: 10px;
+    background-color: #dfecdf;
+    margin-bottom: 15px;
+}
+
+#bar-inner {
+    height: 100%;
+    /* width set in code */
+    background-color: #055733;
+}
+
+#chance {
+    color: #05a05d;
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+#chance-text {
+    color: #666666;
+    margin-bottom: 50px;
+}
+
+#you-may-have-copied {
+    color: #666666;
+    text-align: center;
 }
