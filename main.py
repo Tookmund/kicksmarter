@@ -6,6 +6,9 @@ from flask_sqlalchemy import SQLAlchemy
 import sqlalchemy.orm
 from cockroachdb.sqlalchemy import run_transaction
 
+import csv
+import re
+
 app = Flask(__name__)
 
 CORS(app)
@@ -27,6 +30,24 @@ class UserIdea(db.Model):
         self.desc = desc
         self.category = category
         self.amount = amount
+
+class Kickstarter(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)
+    desc = db.Column(db.String)
+    category = db.Column(db.String)
+    wanted = db.Integer
+    pledged = db.Integer
+    success = db.Float
+
+    def __init__(self, id, title, desc, category, wanted, pledged, success):
+        self.id = id
+        self.title = title
+        self.desc = desc
+        self.category = category
+        self.wanted = wanted
+        self.pledged = pledged
+        self.success = success
 
 #db.create_all()
 
@@ -72,11 +93,48 @@ def api():
     except Exception as e:
         return jsonify(exception=e), 400
 
-@app.route('/db')
+@app.route('/db/userideas')
 def dbroute():
     def callback(session):
         return jsonify(session.query(UserIdea).all())
     return run_transaction(sessionmaker, callback)
+
+@app.route('/db/categories')
+def categories():
+    def callback(session):
+        return jsonify(session.query(Kickstarter.category).distinct().all())
+    return run_transaction(sessionmaker, callback)
+
+@app.route('/db/loaddata')
+def loaddata():
+    data = []
+    with open('ks-projects-201801.csv') as f:
+        reader = csv.reader(f)
+        # skip first row
+        next(reader)
+
+        for row in reader:
+            newdata = {
+                'id': row[0],
+                'title': row[1],
+                'desc': '',
+                'category': row[3],
+                'wanted': float(row[6]),
+                'pledged': float(row[8]),
+            }
+            
+            title = newdata['title']
+            title = title.lower()
+            title = re.sub('[^\w \']', ' ', title)
+            title = re.sub('\s+', ' ', title)
+            title = title.strip()
+            newdata['title'] = title
+            newdata['success'] = newdata['pledged']/newdata['wanted']
+            data.append(newdata)
+            def callback(session):
+                session.add(Kickstarter(**newdata))
+            run_transaction(sessionmaker, callback)
+    return jsonify(data)
 
 if __name__ == "__main__":
     app.run()
