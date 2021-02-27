@@ -19,8 +19,8 @@
             <div v-else>
                 <p><input type="text" v-model="title"></p>
                 <p><input type="text" v-model="desc"></p>
-                <select>
-                    <option v-for="category in categories">{{ category }}</option>
+                <select v-model="category">
+                    <option v-for="each_category in categories">{{ each_category }}</option>
                 </select>
                 <p><input type="number" v-model="amount"></p>
             </div>

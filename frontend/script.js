@@ -69,6 +69,7 @@ fetch('https://kicksmarter.ue.r.appspot.com/db/categories', {
     for (var i in data) {
         app.$data.categories.push(data[i]);
     }
+    app.$data.category = data[0];
     app.$data.isWaitingForCategories = false;
 })
 .catch(function(error) {
