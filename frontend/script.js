@@ -1,6 +1,9 @@
 const app = Vue.createApp({
     data: function () {
         return {
+            categories: [],
+            isWaitingForCategories: true,
+
             title: "",
             desc: "",
             category: "",
@@ -10,13 +13,13 @@ const app = Vue.createApp({
             similar: [],
 
             isWaiting: true,
-            hasSubmitted: false // becomes and stays true upon clicking submit for first time
+            status: ""
         };
     },
     methods: {
         sendRequest: function () {
             this.isWaiting = true;
-            this.hasSubmitted = true;
+            this.status = "Loading...";
             
             input = {
                 title: this.title,
@@ -46,8 +49,28 @@ const app = Vue.createApp({
                         vue.similar.push(data.similar[i]);
                     }
                     vue.isWaiting = false;
+                })
+                .catch(function(error) {
+                    vue.status = "Error :( Please try again!"
                 });
             }, 2000);
         }
     }
 }).mount("#app");
+
+fetch('https://kicksmarter.ue.r.appspot.com/db/categories', {
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'}
+})
+.then(function(response) {
+    return response.json();
+})
+.then(function(data) {
+    for (var i in data) {
+        app.$data.categories.push(data[i]);
+    }
+    app.$data.isWaitingForCategories = false;
+})
+.catch(function(error) {
+    
+});
