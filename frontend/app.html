@@ -23,7 +23,12 @@
             </div>
             <div v-else>
                 <p>{{ chance }}</p>
-                <p v-for="item in similar">{{ item }}</p>
+                <div v-for="item in similar">
+                    <p>{{ item.subcategory }} / {{ item.category }}</p>
+                    <p>${{ item.raised }} / ${{ item.goal }}</p>
+                    <p v-if="item.raised >= item.goal">Funded</p> <p v-else>Failed</p>
+                    <p>{{ item.title }}</p>
+                </div>
             </div>
         </div>
 	</body>
