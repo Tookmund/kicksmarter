@@ -53,7 +53,7 @@ class Kickstarter(db.Model):
 
 @app.route('/')
 def index():
-    return jsonify(hello='World!')
+    return {'Hello': 'World!'}
 
 @app.route('/api', methods=['HEAD', 'POST'])
 def api():
@@ -91,7 +91,9 @@ def api():
                 ]
         })
     except Exception as e:
-        return jsonify(exception=e), 400
+        return {
+            'exception': e
+        }, 400
 
 @app.route('/db/userideas')
 def dbroute():
