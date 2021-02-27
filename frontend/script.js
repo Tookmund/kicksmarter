@@ -1,28 +1,53 @@
 const app = Vue.createApp({
     data: function () {
         return {
-            five: 5
+            title: "",
+            desc: "",
+            category: "",
+            amount: 0,
+
+            chance: 0,
+            similar: [],
+
+            isWaiting: true,
+            hasSubmitted: false // becomes and stays true upon clicking submit for first time
         };
     },
     methods: {
         sendRequest: function () {
-            console.log('sending request');
-            fetch('https://kicksmarter.ue.r.appspot.com/api', {
-                method: 'POST',
-                body: '{"title": "adam has a cool title"}',
-                headers: {'Content-Type': 'application/json'}
-            })
+            this.isWaiting = true;
+            this.hasSubmitted = true;
+            
+            input = {
+                title: this.title,
+                desc: this.desc,
+                category: this.category,
+                amount: this.amount
+            }
+            jsonString = JSON.stringify(input);
+
+            var vue = this;
+            setTimeout(function() {
+                fetch('https://kicksmarter.ue.r.appspot.com/api', {
+                    method: 'POST',
+                    body: jsonString,
+                    headers: {'Content-Type': 'application/json'}
+                })
                 .then(function(response) {
                     return response.json();
                 })
                 .then(function(data) {
                     console.log(data);
-                    console.log("chance: " + data.chance);
-                    for (var i in data.similar) {
-                        console.log("similar #" + i + " title: " + data.similar[i].title);
-                        console.log("similar #" + i + " url: " + data.similar[i].url);
+                    vue.chance = data.chance;
+                    while (vue.similar.length > 0) {
+                        vue.similar.pop();
                     }
+                    for (var i in data.similar) {
+                        vue.similar.push(data.similar[i]);
+                    }
+                    vue.isWaiting = false;
                 });
+            }, 2000);
         }
     }
 }).mount("#app");

@@ -11,8 +11,20 @@
 	<body>
         <h1>Helo werld</h1>
         <div id="app">
-            <p>{{ five }}</p>
             <button v-on:click="sendRequest()">Button</button>
+            <h1>input</h1>
+            <p><input type="text" v-model="title"></p>
+            <p><input type="text" v-model="desc"></p>
+            <p><input type="text" v-model="category"></p>
+            <p><input type="number" v-model="amount"></p>
+            <h1>output</h1>
+            <div v-if="isWaiting">
+                <p v-if="hasSubmitted">Loading...</p>
+            </div>
+            <div v-else>
+                <p>{{ chance }}</p>
+                <p v-for="item in similar">{{ item }}</p>
+            </div>
         </div>
 	</body>
 </html>
