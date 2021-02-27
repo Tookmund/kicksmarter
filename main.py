@@ -95,6 +95,32 @@ def api():
             'exception': e
         }, 400
 
+def similar(submission, dataset):
+    # For now just take the first 5
+    return [dataset[:5]]
+
+def getchance(similardata):
+    return 50
+
+@app.route('/api/idea', methods=['HEAD', 'POST'])
+def idea():
+    if not request.is_json:
+        return {'error': 'invalid submission'}, 400
+    submission = request.get_json()
+    def callback(session):
+        dataset = session.query(Kickstarter).filter(Kickstarter.category==submission['category']).limit(200).all()
+        similardata = similar(submission, dataset)
+        return {
+            'chance': getchance(similardata),
+            'similar': [{
+                'title': x[1],
+                'url': '',
+                'goal': x[4],
+                'pledged': x[5]
+            } for x in similardata]
+        }
+    return run_transaction(sessionmaker, callback)
+
 #@app.route('/db/userideas')
 def dbroute():
     def callback(session):
