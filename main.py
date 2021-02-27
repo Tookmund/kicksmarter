@@ -104,7 +104,7 @@ def dbroute():
 @app.route('/db/categories')
 def categories():
     def callback(session):
-        return jsonify(session.query(Kickstarter.category).distinct().all())
+        return jsonify([x[0] for x in session.query(Kickstarter.category).distinct().all()])
     return run_transaction(sessionmaker, callback)
 
 @app.route('/db/loaddata')
