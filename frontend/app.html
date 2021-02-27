@@ -9,10 +9,9 @@
 		<script src="script.js" defer></script>
 	</head>
 	<body>
-        <h1>Helo werld</h1>
+        <header><img src="kicksmarter.png" alt="Kicksmarter logo"></header>
         <div id="app">
             <button v-on:click="sendRequest()">Button</button>
-            <h1>input</h1>
             <div v-if="isWaitingForCategories">
                 <p>Loading...</p>
             </div>
@@ -24,7 +23,6 @@
                 </select>
                 <p><input type="number" v-model="amount"></p>
             </div>
-            <h1>output</h1>
             <div v-if="isWaiting">
                 <p>{{ status }}</p>
             </div>
