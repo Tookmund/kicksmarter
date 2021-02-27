@@ -17,9 +17,29 @@ def api():
         'chance': 50,
         'similar': [
                 {
-                    'title': 'hello world',
-                    'url': 'https://example.com'
-                }
+                    'title': str(request.form['title']),
+                    'url': 'https://example.com/your-request'
+                    'category': 'category1',
+                    'subcategory': 'subcat1',
+                    'goal': 1,
+                    'raised': 1,
+                },
+                {
+                    'title': 'title2',
+                    'url': 'https://example.com/url2'
+                    'category': 'category2',
+                    'subcategory': 'subcat2',
+                    'goal': 2,
+                    'raised': 2
+                },
+                {
+                    'title': 'title3',
+                    'url': 'https://example.com/your-request'
+                    'category': 'category3',
+                    'subcategory': 'subcat3',
+                    'goal': 3,
+                    'raised': 3
+                },
             ]
     })
 
