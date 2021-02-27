@@ -12,13 +12,15 @@ def index():
 
 @app.route('/api', methods=['HEAD', 'POST'])
 def api():
-    # Data in request.form
+    yourtitle = ''
+    if request.is_json:
+        yourtitle = request.get_json()['title']
     return jsonify({
         'chance': 50,
         'similar': [
                 {
-                    'title': str(request.form['title']),
-                    'url': 'https://example.com/your-request'
+                    'title': yourtitle,
+                    'url': 'https://example.com/your-request',
                     'category': 'category1',
                     'subcategory': 'subcat1',
                     'goal': 1,
@@ -26,7 +28,7 @@ def api():
                 },
                 {
                     'title': 'title2',
-                    'url': 'https://example.com/url2'
+                    'url': 'https://example.com/url2',
                     'category': 'category2',
                     'subcategory': 'subcat2',
                     'goal': 2,
@@ -34,7 +36,7 @@ def api():
                 },
                 {
                     'title': 'title3',
-                    'url': 'https://example.com/url3'
+                    'url': 'https://example.com/url3',
                     'category': 'category3',
                     'subcategory': 'subcat3',
                     'goal': 3,
