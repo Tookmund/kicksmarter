@@ -1,18 +1,23 @@
 const app = Vue.createApp({
     data: function () {
         return {
-            title: "adam has a cooler title",
+            title: "",
             desc: "",
             category: "",
             amount: 0,
 
             chance: 0,
-            similar: []
+            similar: [],
+
+            isWaiting: true,
+            hasSubmitted: false // becomes and stays true upon clicking submit for first time
         };
     },
     methods: {
         sendRequest: function () {
-            console.log('sending request');
+            this.isWaiting = true;
+            this.hasSubmitted = true;
+            
             input = {
                 title: this.title,
                 desc: this.desc,
@@ -40,6 +45,7 @@ const app = Vue.createApp({
                     for (var i in data.similar) {
                         vue.similar.push(data.similar[i]);
                     }
+                    vue.isWaiting = false;
                 });
             }, 2000);
         }
