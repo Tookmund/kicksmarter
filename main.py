@@ -95,7 +95,7 @@ def api():
             'exception': e
         }, 400
 
-@app.route('/db/userideas')
+#@app.route('/db/userideas')
 def dbroute():
     def callback(session):
         return jsonify(session.query(UserIdea).all())
