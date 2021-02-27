@@ -1,10 +1,34 @@
 #!/usr/bin/env python3
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+
+import sqlalchemy.orm
+from cockroachdb.sqlalchemy import run_transaction
 
 app = Flask(__name__)
 
 CORS(app)
+
+app.config.from_pyfile('cockroach.cfg')
+
+db = SQLAlchemy(app)
+sessionmaker = sqlalchemy.orm.sessionmaker(db.engine)
+
+class UserIdea(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)
+    desc = db.Column(db.String)
+    category = db.Column(db.String)
+    amount = db.Integer
+
+    def __init__(self, title, desc, category, amount):
+        self.title = title
+        self.desc = desc
+        self.category = category
+        self.amount = amount
+
+db.create_all()
 
 @app.route('/')
 def index():
@@ -16,7 +40,6 @@ def api():
         yourtitle = ''
         if request.is_json:
                 yourtitle = request.get_json()['title']
-
         return jsonify({
             'chance': 50,
             'similar': [
@@ -48,6 +71,12 @@ def api():
         })
     except Exception as e:
         return jsonify(exception=e), 400
+
+@app.route('/db')
+def dbroute():
+    def callback(session):
+        return jsonify(session.query(UserIdea).all())
+    return run_transaction(sessionmaker, callback)
 
 if __name__ == "__main__":
     app.run()
