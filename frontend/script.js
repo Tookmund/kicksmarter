@@ -1,6 +1,9 @@
 const app = Vue.createApp({
     data: function () {
         return {
+            categories: [],
+            isWaitingForCategories: true,
+
             title: "",
             desc: "",
             category: "",
@@ -54,3 +57,20 @@ const app = Vue.createApp({
         }
     }
 }).mount("#app");
+
+fetch('https://kicksmarter.ue.r.appspot.com/db/categories', {
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'}
+})
+.then(function(response) {
+    return response.json();
+})
+.then(function(data) {
+    for (var i in data) {
+        app.$data.categories.push(data[i]);
+    }
+    app.$data.isWaitingForCategories = false;
+})
+.catch(function(error) {
+    
+});
