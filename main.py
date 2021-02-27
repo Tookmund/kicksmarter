@@ -34,7 +34,7 @@ def api():
                 },
                 {
                     'title': 'title3',
-                    'url': 'https://example.com/your-request'
+                    'url': 'https://example.com/url3'
                     'category': 'category3',
                     'subcategory': 'subcat3',
                     'goal': 3,
