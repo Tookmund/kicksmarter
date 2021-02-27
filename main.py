@@ -14,7 +14,10 @@ def index():
 def api():
     yourtitle = ''
     if request.is_json:
-        yourtitle = request.get_json()['title']
+        try:
+            yourtitle = request.get_json()['title']
+        except Exception as e:
+            return jsonify(exception=e)
     return jsonify({
         'chance': 50,
         'similar': [
