@@ -28,7 +28,7 @@ class UserIdea(db.Model):
         self.category = category
         self.amount = amount
 
-db.create_all()
+#db.create_all()
 
 @app.route('/')
 def index():
