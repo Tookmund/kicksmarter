@@ -19,7 +19,7 @@
             <p><input type="number" v-model="amount"></p>
             <h1>output</h1>
             <div v-if="isWaiting">
-                <p v-if="hasSubmitted">Loading...</p>
+                <p>{{ status }}</p>
             </div>
             <div v-else>
                 <p>{{ chance }}</p>

@@ -10,13 +10,13 @@ const app = Vue.createApp({
             similar: [],
 
             isWaiting: true,
-            hasSubmitted: false // becomes and stays true upon clicking submit for first time
+            status: ""
         };
     },
     methods: {
         sendRequest: function () {
             this.isWaiting = true;
-            this.hasSubmitted = true;
+            this.status = "Loading...";
             
             input = {
                 title: this.title,
@@ -46,6 +46,9 @@ const app = Vue.createApp({
                         vue.similar.push(data.similar[i]);
                     }
                     vue.isWaiting = false;
+                })
+                .catch(function(error) {
+                    vue.status = "Error :( Please try again!"
                 });
             }, 2000);
         }
