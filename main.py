@@ -101,7 +101,7 @@ def api():
         }, 400
 
 def similar(submission, dataset):
-    offset = randrange(1000)
+    offset = randrange(500)
     return dataset[offset:offset+5]
 
 def getchance(similardata):
@@ -123,7 +123,7 @@ def idea():
         return {'error': 'invalid submission'}, 400
     submission = request.get_json()
     def callback(session):
-        dataset = session.query(Kickstarter).filter(Kickstarter.category==submission['category']).limit(200).all()
+        dataset = session.query(Kickstarter).filter(Kickstarter.category==submission['category']).limit(1000).all()
         similardata = similar(submission, dataset)
         chance =  getchance(similardata)
         return {
