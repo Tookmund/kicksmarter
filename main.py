@@ -101,7 +101,7 @@ def similar(submission, dataset):
     return [dataset[:5]]
 
 def getchance(similardata):
-    return 50
+    return sum([x[6] for x in similardata])/len(similardata)
 
 def getkickstarterjson(x):
     return {
