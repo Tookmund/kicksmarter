@@ -51,7 +51,7 @@ class Kickstarter(db.Model):
         self.pledged = pledged
         self.success = success
 
-db.create_all()
+#db.create_all()
 
 @app.route('/')
 def index():
