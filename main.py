@@ -12,6 +12,8 @@ from urllib.parse import quote
 import string
 from random import randrange
 
+import bert
+
 app = Flask(__name__)
 
 CORS(app)
@@ -101,8 +103,9 @@ def api():
         }, 400
 
 def similar(submission, dataset):
-    offset = randrange(1000)
-    return dataset[offset:offset+5]
+    titles = [x.title for x in dataset]
+    indices = bert.data_processing(submission['title'], titles)
+    return [dataset[i] for i in indices]
 
 def getchance(similardata):
     chanceavg = sum([x.success for x in similardata])/len(similardata)
