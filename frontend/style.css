@@ -110,6 +110,16 @@ main {
     background-color: #055733;
 }
 
+#predictions {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+}
+
+#predictions :nth-child(2n) {
+    text-align: right;
+}
+
 #prediction-number {
     color: #05a05d;
     font-size: 48px;
@@ -120,6 +130,12 @@ main {
 #prediction-text {
     color: #666666;
     margin-bottom: 50px;
+}
+
+.prediction-unit {
+    color: #666666;
+    font-size: 36px;
+    font-weight: normal;
 }
 
 #you-may-have-copied {
