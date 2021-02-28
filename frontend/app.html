@@ -47,11 +47,15 @@
                     <p id="chance">{{ chance }}%</p>
                     <p id="chance-text">likely to be funded</p>
                     <p id="you-may-have-copied">You may have copied...</p>
-                    <div v-for="item in similar">
-                        <p>{{ item.subcategory }} / {{ item.category }}</p>
-                        <p>${{ item.raised }} / ${{ item.goal }}</p>
-                        <p v-if="item.raised >= item.goal">Funded</p> <p v-else>Failed</p>
-                        <p>{{ item.title }}</p>
+                    <div v-for="item in similar" class="similar-project">
+                        <div class="similar-project-top-row">
+                            <p class="project-title"><a v-bind:href="item.url">{{ item.title }}</a></p>
+                            <p v-if="item.raised >= item.goal" class="pill pill-funded">Funded</p> <p v-else class="pill pill-failed">Failed</p>
+                        </div>
+                        <div class="similar-project-bottom-row">
+                            <p class="project-category">{{ item.subcategory }} / {{ item.category }}</p>
+                            <p class="project-funding">${{ item.raised }} <span class="project-funding-slash">/</span> ${{ item.goal }}</p>
+                        </div>
                     </div>
                 </div>
             </div>

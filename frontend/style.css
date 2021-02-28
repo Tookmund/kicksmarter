@@ -79,6 +79,12 @@ main {
     padding: 50px 20%;
 }
 
+@media(max-width: 1400px) {
+    #input, #output {
+        padding: 50px 5%;
+    }
+}
+
 #output {
     background-color: #f4f8f4;
     box-shadow: inset 5px 0px 5px 0px #d3dfd8;
@@ -119,4 +125,74 @@ main {
 #you-may-have-copied {
     color: #666666;
     text-align: center;
+    margin-bottom: 30px;
+}
+
+.similar-project {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0px 3px 5px 0px #d3dfd8;
+}
+
+.similar-project > * {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.similar-project-top-row {
+    margin-bottom: 20px;
+}
+
+.project-title {
+    font-size: 24px;
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.project-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.project-title a:hover, .project-title a:focus {
+    text-decoration: underline;
+}
+
+.pill {
+    display: inline;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.pill-funded {
+    background-color: #05ce78;
+    color: #055733;
+}
+
+.pill-failed {
+    background-color: #cc0c05;
+    color: #570805;
+}
+
+.project-category {
+    color: #666666;
+}
+
+.project-funding {
+    color: #05a05d;
+    font-weight: bold;
+    font-size: 32px;
+}
+
+.project-funding-slash {
+    font-weight: normal;
+    color: #666666;
+    font-size: 20px;
 }
