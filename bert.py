@@ -1,5 +1,6 @@
 # String - user title, String Array - Category Titles
 from sent2vec.vectorizer import Vectorizer
+from scipy import spatial
 
 def data_processing(user_title, projects_list):
 
