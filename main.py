@@ -8,7 +8,8 @@ from cockroachdb.sqlalchemy import run_transaction
 
 import csv
 import re
-from urllib.parse import urlencode
+from urllib.parse import quote
+import string
 
 app = Flask(__name__)
 
@@ -102,15 +103,16 @@ def similar(submission, dataset):
     return dataset[:5]
 
 def getchance(similardata):
-    return sum([x[6] for x in similardata])/len(similardata)
+    chanceavg = sum([x.success for x in similardata])/len(similardata)
+    return round(chanceavg*100, 2)
 
 def getkickstarterjson(x):
     return {
-        'title': x[1],
-        'url': 'https://www.kickstarter.com/discover/advanced?ref=nav_search&term='+urlencode(x[1]),
-        'category': x[3],
-        'goal': x[4],
-        'raised': x[5]
+        'title': string.capwords(str(x.title)),
+        'url': 'https://www.kickstarter.com/discover/advanced?ref=nav_search&term='+quote(x.title),
+        'category': x.category,
+        'goal': x.wanted,
+        'raised': x.pledged
     }
 
 @app.route('/api/idea', methods=['HEAD', 'POST'])
