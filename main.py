@@ -33,13 +33,14 @@ class UserIdea(db.Model):
         self.amount = amount
 
 class Kickstarter(db.Model):
+    __tablename__ = 'kickstarterdata'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
     desc = db.Column(db.String)
     category = db.Column(db.String)
-    wanted = db.Integer
-    pledged = db.Integer
-    success = db.Float
+    wanted = db.Column(db.Float)
+    pledged = db.Column(db.Float)
+    success = db.Column(db.Float)
 
     def __init__(self, id, title, desc, category, wanted, pledged, success):
         self.id = id
@@ -50,7 +51,7 @@ class Kickstarter(db.Model):
         self.pledged = pledged
         self.success = success
 
-#db.create_all()
+db.create_all()
 
 @app.route('/')
 def index():
