@@ -99,7 +99,7 @@ def api():
 
 def similar(submission, dataset):
     # For now just take the first 5
-    return [dataset[:5]]
+    return dataset[:5]
 
 def getchance(similardata):
     return sum([x[6] for x in similardata])/len(similardata)
