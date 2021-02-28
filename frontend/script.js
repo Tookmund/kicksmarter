@@ -11,6 +11,7 @@ const app = Vue.createApp({
 
             submittedTitle: "",
             chance: 0,
+            predictedAmount: 0,
             similar: [],
 
             isWaiting: true,
@@ -32,7 +33,7 @@ const app = Vue.createApp({
             jsonString = JSON.stringify(input);
 
             var vue = this;
-            fetch('https://kicksmarter.ue.r.appspot.com/api', {
+            fetch('https://kicksmarter.ue.r.appspot.com/api/idea', {
                 method: 'POST',
                 body: jsonString,
                 headers: {'Content-Type': 'application/json'}
@@ -43,6 +44,7 @@ const app = Vue.createApp({
             .then(function(data) {
                 console.log(data);
                 vue.chance = data.chance;
+                vue.predictedAmount = data.amount;
                 while (vue.similar.length > 0) {
                     vue.similar.pop();
                 }
@@ -73,5 +75,5 @@ fetch('https://kicksmarter.ue.r.appspot.com/db/categories', {
     app.$data.isWaitingForCategories = false;
 })
 .catch(function(error) {
-    
+    console.log(error);
 });

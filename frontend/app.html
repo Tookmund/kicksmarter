@@ -44,8 +44,10 @@
                 <div v-else>
                     <p id="output-title">{{ submittedTitle }}</p>
                     <div id="bar"><div id="bar-inner" v-bind:style="{width: chance + '%'}"></div></div>
-                    <p id="chance">{{ chance }}%</p>
-                    <p id="chance-text">likely to be funded</p>
+                    <div id="predictions">
+                        <p id="prediction-number">{{ chance }}%</p>
+                        <p id="prediction-text">likely to be funded</p>
+                    </div>
                     <p id="you-may-have-copied">You may have copied...</p>
                     <div v-for="item in similar" class="similar-project">
                         <div class="similar-project-top-row">

@@ -110,14 +110,14 @@ main {
     background-color: #055733;
 }
 
-#chance {
+#prediction-number {
     color: #05a05d;
     font-size: 48px;
     font-weight: bold;
     margin-bottom: 0px;
 }
 
-#chance-text {
+#prediction-text {
     color: #666666;
     margin-bottom: 50px;
 }
@@ -177,7 +177,7 @@ main {
 }
 
 .pill-failed {
-    background-color: #cc0c05;
+    background-color: #ff7c77;
     color: #570805;
 }
 
