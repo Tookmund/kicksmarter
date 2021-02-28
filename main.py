@@ -128,7 +128,7 @@ def idea():
         chance =  getchance(similardata)
         return {
             'chance': min(chance, 99.99),
-            'amount': round(float(submission['amount'])*chance, 2),
+            'amount': round(float(submission['amount'])*(chance/100), 2),
             'similar': [getkickstarterjson(x) for x in similardata]
         }
     return run_transaction(sessionmaker, callback)
