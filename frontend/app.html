@@ -25,8 +25,8 @@
                         <input type="text" v-model="desc" id="desc">
                     </p>
                     <p class="label-input">
-                        <label for="desc">Description</label>
-                        <select v-model="category">
+                        <label for="desc">Category</label>
+                        <select id="category v-model="category">
                             <option v-for="each_category in categories">{{ each_category }}</option>
                         </select>
                     </p>
@@ -34,7 +34,7 @@
                         <label for="amount">Funding Goal</label>
                         <input type="number" v-model="amount" id="amount">
                     </p>
-                    <button v-on:click="sendRequest()">Button</button>
+                    <button v-on:click="sendRequest()">Submit</button>
                 </div>
             </div>
             <div id="output">
