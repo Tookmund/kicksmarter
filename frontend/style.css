@@ -12,7 +12,7 @@ html, body {
     margin: 0px;
 }
 
-input, select, button {
+input, textarea, select, button {
     font-family: inherit;
     color: inherit;
     font-size: inherit;
@@ -36,7 +36,7 @@ input, select, button {
     margin-bottom: 40px;
 }
 
-input, select {
+input, textarea, select {
     border: solid 1px #c7c7c7;
     padding: 10px;
     border-radius: 5px;
@@ -76,7 +76,7 @@ main {
 }
 
 #input, #output {
-    padding: 50px 20%;
+    padding: 50px 10%;
 }
 
 @media(max-width: 1400px) {
@@ -179,6 +179,10 @@ main {
 .pill-failed {
     background-color: #cc0c05;
     color: #570805;
+}
+
+.similar-project-bottom-row {
+    align-items: flex-end;
 }
 
 .project-category {
