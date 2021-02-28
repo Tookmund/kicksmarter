@@ -7,9 +7,9 @@ handlers:
   secure: always
   redirect_http_response_code: 301
 
-- url: /(script.js|style.css)
+- url: /(script.js|style.css|kicksmarter.png)
   static_files: frontend/\1
-  upload: frontend/(script.js|style.css)
+  upload: frontend/(script.js|style.css|kicksmarter.png)
   secure: always
   redirect_http_response_code: 301
 
