@@ -1,5 +1,7 @@
 runtime: python37
 
+instance_class: F4_1G
+
 handlers:
 - url: /
   static_files: frontend/app.html
