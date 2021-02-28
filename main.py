@@ -11,6 +11,8 @@ import re
 from urllib.parse import quote
 import string
 
+import bert
+
 app = Flask(__name__)
 
 CORS(app)
@@ -99,8 +101,10 @@ def api():
         }, 400
 
 def similar(submission, dataset):
-    # For now just take the first 5
     return dataset[:5]
+    # titles = [x.title for x in dataset]
+    # indices = bert.data_processing(submission['title'], titles)
+    # return [dataset[i] for i in indices]
 
 def getchance(similardata):
     chanceavg = sum([x.success for x in similardata])/len(similardata)
@@ -126,7 +130,7 @@ def idea():
         chance =  getchance(similardata)
         return {
             'chance': min(chance, 99.99),
-            'amount': round(submission['amount']*chance, 2),
+            'amount': round(float(submission['amount'])*chance, 2),
             'similar': [getkickstarterjson(x) for x in similardata]
         }
     return run_transaction(sessionmaker, callback)
