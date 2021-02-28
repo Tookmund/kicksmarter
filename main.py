@@ -123,8 +123,10 @@ def idea():
     def callback(session):
         dataset = session.query(Kickstarter).filter(Kickstarter.category==submission['category']).limit(200).all()
         similardata = similar(submission, dataset)
+        chance =  getchance(similardata)
         return {
-            'chance': getchance(similardata),
+            'chance': min(chance, 99.99),
+            'amount': round(submission['amount']*chance, 2),
             'similar': [getkickstarterjson(x) for x in similardata]
         }
     return run_transaction(sessionmaker, callback)
