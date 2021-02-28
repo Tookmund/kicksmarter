@@ -103,6 +103,15 @@ def similar(submission, dataset):
 def getchance(similardata):
     return 50
 
+def getkickstarterjson(x):
+    return {
+        'title': x[1],
+        'url': 'https://www.kickstarter.com/discover/advanced?ref=nav_search&term='+urlencode(x[1]),
+        'category': x[3],
+        'goal': x[4],
+        'raised': x[5]
+    }
+
 @app.route('/api/idea', methods=['HEAD', 'POST'])
 def idea():
     if not request.is_json:
@@ -113,13 +122,7 @@ def idea():
         similardata = similar(submission, dataset)
         return {
             'chance': getchance(similardata),
-            'similar': [{
-                'title': x[1],
-                'url': 'https://www.kickstarter.com/discover/advanced?ref=nav_search&term='+urlencode(x[1]),
-                'category': x[3],
-                'goal': x[4],
-                'raised': x[5]
-            } for x in similardata]
+            'similar': [getkickstarterjson(x) for x in similardata]
         }
     return run_transaction(sessionmaker, callback)
 
@@ -129,13 +132,13 @@ def dbroute():
         return jsonify(session.query(UserIdea).all())
     return run_transaction(sessionmaker, callback)
 
-@app.route('/db/kickstarter')
+#@app.route('/db/kickstarter')
 def kickstarterroute():
     def callback(session):
         data = session.query(Kickstarter).all()
         return {
             'count': len(data),
-            'data': data
+            'data': [getkickstarterjson(x) for x in data]
         }
     return run_transaction(sessionmaker, callback)
 
@@ -145,7 +148,7 @@ def categories():
         return jsonify([x[0] for x in session.query(Kickstarter.category).distinct().all()])
     return run_transaction(sessionmaker, callback)
 
-@app.route('/db/loaddata')
+#@app.route('/db/loaddata')
 def loaddata():
     data = []
     with open('ks-projects-201801.csv') as f:
