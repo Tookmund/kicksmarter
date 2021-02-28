@@ -46,7 +46,7 @@
                     <div id="bar"><div id="bar-inner" v-bind:style="{width: chance + '%'}"></div></div>
                     <div id="predictions">
                         <p id="prediction-number">{{ chance }}<span class="prediction-unit">%</span></p>
-                        <p id="prediction-number"><span class="prediction-unit">$</span>{{ predictedAmount }}</p>
+                        <p id="prediction-number"><span class="prediction-unit">$</span>{{ predictedAmount.toFixed(2) }}</p>
                         <p id="prediction-text">likely to be funded</p>
                         <p id="prediction-text">Predicted amount of funding</p>
                     </div>
