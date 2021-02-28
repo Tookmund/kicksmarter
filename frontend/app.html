@@ -57,7 +57,7 @@
                             <p v-if="item.raised >= item.goal" class="pill pill-funded">Funded</p> <p v-else class="pill pill-failed">Failed</p>
                         </div>
                         <div class="similar-project-bottom-row">
-                            <p class="project-category">{{ item.subcategory }} / {{ item.category }}</p>
+                            <p class="project-category">{{ item.category }}</p>
                             <p class="project-funding">${{ item.raised.toFixed(0) }} <span class="project-funding-slash">/</span> ${{ item.goal }}</p>
                         </div>
                     </div>
