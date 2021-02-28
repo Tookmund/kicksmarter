@@ -10,8 +10,7 @@ import csv
 import re
 from urllib.parse import quote
 import string
-
-import bert
+from random import randrange
 
 app = Flask(__name__)
 
@@ -68,6 +67,7 @@ def api():
                 yourtitle = request.get_json()['title']
         return jsonify({
             'chance': 50,
+            'amount': 94.56,
             'similar': [
                     {
                         'title': yourtitle,
@@ -75,7 +75,7 @@ def api():
                         'category': 'category1',
                         'subcategory': 'subcat1',
                         'goal': 1,
-                        'raised': 1,
+                        'raised': 1
                     },
                     {
                         'title': 'title2',
@@ -101,10 +101,8 @@ def api():
         }, 400
 
 def similar(submission, dataset):
-    return dataset[:5]
-    # titles = [x.title for x in dataset]
-    # indices = bert.data_processing(submission['title'], titles)
-    # return [dataset[i] for i in indices]
+    offset = randrange(1000)
+    return dataset[offset:offset+5]
 
 def getchance(similardata):
     chanceavg = sum([x.success for x in similardata])/len(similardata)
@@ -130,7 +128,7 @@ def idea():
         chance =  getchance(similardata)
         return {
             'chance': min(chance, 99.99),
-            'amount': round(float(submission['amount'])*chance, 2),
+            'amount': round(float(submission['amount'])*(chance/100), 2),
             'similar': [getkickstarterjson(x) for x in similardata]
         }
     return run_transaction(sessionmaker, callback)

@@ -4,3 +4,4 @@ flask-sqlalchemy
 sqlalchemy-cockroachdb
 psycopg2-binary
 sent2vec
+scipy
